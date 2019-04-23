@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18B75" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Plant" representedClassName="Plant" syncable="YES">
+        <attribute name="species" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="waterDates" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WaterDate" inverseName="plant" inverseEntity="WaterDate" syncable="YES"/>
+    </entity>
+    <entity name="WaterDate" representedClassName="WaterDate" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="plant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Plant" inverseName="waterDates" inverseEntity="Plant" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Plant" positionX="-247.26953125" positionY="-33.6484375" width="128" height="73"/>
+        <element name="WaterDate" positionX="-28.921875" positionY="-28.96875" width="128" height="73"/>
+    </elements>
+</model>
