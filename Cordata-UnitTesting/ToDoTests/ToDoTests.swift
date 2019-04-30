@@ -12,6 +12,7 @@ import CoreData
 @testable import ToDo
 
 class ToDoTests: XCTestCase {
+    
 
     // Custom managedObjectModel that will be used to initialize the persistent container.
     // The model object is created from test Bundle. For this to be possible, the model should also be added to the test target. I did this part in advance, so don't worry about it.
@@ -54,32 +55,52 @@ class ToDoTests: XCTestCase {
         super.setUp()
         
         // TODO: create mock items for the tests
+        createMockItems()
         
         // TODO: instantiate  the manager and inject the mockPersistantcontainer as the needed dependency.
+        manager = ToDoStorageManager(container: mockPersistantContainer)
+        
+        
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         // TODO: Clear all mock data
+        clearData()
 
         super.tearDown()
     }
     
     //TODO: Check that created item is not nil
     func test_create_todo() {
-        
-       
-        
+        //Given the name & completion status
+        //When adding an item
+        let homework = manager.insertTodoItem(name: "CS Article", completed: true)
+        //Assert the returned item is not nil
+        XCTAssertNotNil(homework)
     }
     
     // TODO: Check that you get the correct amount of items
     func test_fetch_all_todo() {
-        
+        //Given all the items
+        let items = manager.fetchAllItems()
+        //When counting the items
+        //Assert the count is the number of items
+        XCTAssertEqual(items.count, itemsTotalCount())
         
     }
     
     //TODO: Check that you get the correct amount of items after deleting one
     func test_remove_todo() {
+        //Given all the items and the item we want to delete
+        let item = manager.fetchAllItems()
+        let deletedItem = item.first
+        
+        // Delete all the items
+        manager.removeItem(objectID: deletedItem!.objectID)
+        
+        // Assert the count to the total number of todos
+        XCTAssertEqual(item.count, itemsTotalCount())
         
       
         
@@ -98,7 +119,9 @@ class ToDoTests: XCTestCase {
         
         //TODO: Create a few items, ignore the unused warning you'll get. This items are also called stubs.
         
-        
+        insertTodoItem(name: "yeet", completed: true)
+        insertTodoItem(name: "yote", completed: true)
+        insertTodoItem(name: "yupe", completed: false)
         
         // Saving the context, to really save the items you just created.
         
